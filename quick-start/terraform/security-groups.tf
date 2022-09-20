@@ -3,7 +3,9 @@ resource "aws_security_group" "vault-server" {
   description = "SSH and Internal Traffic"
 
   tags = {
-    Name = var.environment_name
+    Name     = var.environment_name
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
   }
 
   # SSH
@@ -51,7 +53,9 @@ resource "aws_security_group" "rds" {
   description = "Postgres traffic"
 
   tags = {
-    Name = var.environment_name
+    Name     = var.environment_name
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
   }
 
   # Postgres traffic

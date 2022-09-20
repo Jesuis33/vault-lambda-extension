@@ -5,11 +5,19 @@
 resource "aws_iam_instance_profile" "vault-server" {
   name = "${var.environment_name}-vault-server-instance-profile"
   role = aws_iam_role.vault-server.name
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "aws_iam_role" "vault-server" {
   name               = "${var.environment_name}-vault-server-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_ec2.json
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "aws_iam_role_policy" "vault-server" {
@@ -22,17 +30,29 @@ resource "aws_iam_role_policy" "vault-server" {
 resource "aws_iam_instance_profile" "lambda" {
   name = "${var.environment_name}-lambda-instance-profile"
   role = aws_iam_role.lambda.name
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "aws_iam_role" "lambda" {
   name               = "${var.environment_name}-lambda-role"
   assume_role_policy = var.assume_role ? data.aws_iam_policy_document.assume_role_lambda_plus_root[0].json : data.aws_iam_policy_document.assume_role_lambda.json
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "aws_iam_role" "extra_role" {
   count              = var.assume_role ? 1 : 0
   name               = "${var.environment_name}-extra-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role_lambda_plus_root[0].json
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "aws_iam_role_policy" "lambda" {
@@ -88,7 +108,7 @@ data "aws_iam_policy_document" "assume_role_lambda_plus_root" {
     }
 
     principals {
-      type = "AWS"
+      type        = "AWS"
       identifiers = ["arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"]
     }
   }
@@ -162,8 +182,8 @@ data "aws_iam_policy_document" "lambda_plus_assume_role" {
   }
 
   statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
+    effect    = "Allow"
+    actions   = ["sts:AssumeRole"]
     resources = ["*"]
   }
 }

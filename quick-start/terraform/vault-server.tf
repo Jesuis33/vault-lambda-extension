@@ -10,7 +10,9 @@ resource "aws_instance" "vault-server" {
   iam_instance_profile        = aws_iam_instance_profile.vault-server.id
 
   tags = {
-    Name = "${var.environment_name}-vault-server"
+    Name     = "${var.environment_name}-vault-server"
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
   }
 
   user_data = templatefile(

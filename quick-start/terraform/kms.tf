@@ -6,7 +6,9 @@ resource "aws_kms_key" "vault" {
   deletion_window_in_days = 7
 
   tags = {
-    Name = "${var.environment_name}-vault-kms-unseal-key"
+    Name     = "${var.environment_name}-vault-kms-unseal-key"
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
   }
 }
 
