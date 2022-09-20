@@ -15,6 +15,10 @@ resource "null_resource" "main" {
 resource "aws_key_pair" "main" {
   key_name   = "vault-kms-unseal-${random_pet.env.id}"
   public_key = tls_private_key.main.public_key_openssh
+  tags = {
+    git_org  = "Jesuis33"
+    git_repo = "vault-lambda-extension"
+  }
 }
 
 resource "random_pet" "env" {
